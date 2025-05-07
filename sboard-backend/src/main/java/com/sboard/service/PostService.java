@@ -25,6 +25,14 @@ public class PostService {
         return postRepository.save(post);
     }
 
+    public Post updatePost(Long id, Post updatedPost) {
+        Post post = postRepository.findById(id).orElseThrow();
+        post.setTitle(updatedPost.getTitle());
+        post.setContent(updatedPost.getContent());
+        post.setWriter(updatedPost.getWriter());
+        return postRepository.save(post);
+    }
+
     public void deletePost(Long id) {
         postRepository.deleteById(id);
     }

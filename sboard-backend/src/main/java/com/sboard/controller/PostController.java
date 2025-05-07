@@ -11,6 +11,10 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 
 @RestController
@@ -32,6 +36,11 @@ public class PostController {
     @PostMapping
     public Post createPost(@RequestBody Post post) {
         return postService.savePost(post);
+    }
+
+    @PutMapping("/{id}")
+    public Post updatePost(@PathVariable Long id, @RequestBody Post updatedPost) {
+        return postService.updatePost(id, updatedPost);
     }
 
     @DeleteMapping("/{id}")
