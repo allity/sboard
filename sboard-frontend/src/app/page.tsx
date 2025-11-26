@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { API_BASE_URL } from '@/config'
+import Link from 'next/link'
 
 interface Post {
   id: number
@@ -13,7 +15,7 @@ export default function Home() {
   const [posts, setPosts] = useState<Post[]>([])
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/posts')
+    fetch(`${API_BASE_URL}/api/posts`)
       .then((res) => res.json())
       .then((data) => setPosts(data))
       .catch((err) => console.error('불러오기 실패:', err))
@@ -25,7 +27,9 @@ export default function Home() {
       <ul className="space-y-3 mb-4">
         {posts.map((post) => (
           <li key={post.id} className="p-4 border rounded shadow-sm">
-            <h2 className="text-xl font-semibold">{post.title}</h2>
+            <Link href={`/view/${post.id}`}>
+              <h2 className="text-xl font-semibold">{post.title}</h2>
+            </Link>
             <p className="text-sm text-gray-600">
               ✍ {post.writer} | 🕒 {post.createdAt}
             </p>

@@ -1,5 +1,6 @@
 'use client'
 
+import { API_BASE_URL } from '@/config'
 import { useState, useEffect } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 
@@ -14,7 +15,7 @@ export default function EditPage() {
 
   useEffect(() => {
     if (!id) return
-    fetch(`http://localhost:8080/api/posts/${id}`)
+    fetch(`${API_BASE_URL}/api/posts/${id}`)
         .then(res => res.json())
         .then(data => {
             setTitle(data.title)
@@ -25,7 +26,7 @@ export default function EditPage() {
 
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault()
-    const res = await fetch(`http://localhost:8080/api/posts/${id}`, {
+    const res = await fetch(`${API_BASE_URL}/api/posts/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title, content, writer }),
@@ -60,9 +61,21 @@ export default function EditPage() {
           onChange={e => setWriter(e.target.value)}
           required
         />
-        <button className="bg-yellow-500 text-white px-4 py-2 rounded" type="submit">
-          수정하기
-        </button>
+        <div className="flex gap-2">
+          <button
+            className="bg-yellow-500 text-white px-4 py-2 rounded"
+            type="submit"
+          >
+            수정하기
+          </button>
+          <button
+            type="button"
+            onClick={() => router.back()}
+            className="bg-gray-400 text-white px-4 py-2 rounded"
+          >
+            뒤로가기
+          </button>
+        </div>
       </form>
     </main>
   )

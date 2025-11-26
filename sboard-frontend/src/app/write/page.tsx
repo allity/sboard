@@ -1,5 +1,6 @@
 'use client'
 
+import { API_BASE_URL } from '@/config'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -19,7 +20,7 @@ export default function WritePage() {
       createdAt: new Date().toISOString(),
     }
 
-    const res = await fetch('http://localhost:8080/api/posts', {
+    const res = await fetch(`${API_BASE_URL}/api/posts`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(post),

@@ -32,9 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 
-### MAVEN ###
-.mvn/
-
 # Spring secret config
 sboard-backend/src/main/resources/application-secret.properties
 sboard-backend/src/main/resources/application.properties
@@ -51,6 +48,7 @@ sboard-backend/src/main/resources/application.properties
 
 # testing
 /sboard-frontend/coverage
+/sboard-frontend/.env*
 
 # next.js
 /sboard-frontend/.next/
