@@ -1,5 +1,6 @@
 import { API_BASE_URL } from '@/config'
 import { notFound } from 'next/navigation'
+import PostDeleteButton from '@/components/PostDeleteButton'
 import Link from 'next/link'
 
 type Post = {
@@ -11,13 +12,14 @@ type Post = {
 }
 
 interface ViewPageProps {
-    params: {
+    params: Promise<{
         id: string
-    }
+    }>
 }
 
 export default async function ViewPage({ params }: ViewPageProps) {
-    const res = await fetch(`${API_BASE_URL}/api/posts/${params.id}`, {
+    const { id } = await params
+    const res = await fetch(`${API_BASE_URL}/api/posts/${id}`, {
         cache: 'no-store',
     })
     
@@ -39,6 +41,8 @@ export default async function ViewPage({ params }: ViewPageProps) {
           <Link href="/" className="hover:underline">목록</Link>
           <span>|</span>
           <Link href={`/edit/${post.id}`} className="hover:underline">수정</Link>
+          <span>|</span>
+          <PostDeleteButton id={post.id} />
         </div>
         
         <h1 className="text-2xl font-bold mb-2">{post.title}</h1>
